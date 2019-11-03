@@ -1,0 +1,76 @@
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="styledark.css">
+</head>
+
+<body class="pattern3">
+<div class="container">
+   <div class="header ltr">GTK</div>
+   <div class="content rtl">
+     <h2>جزوه برنامه نویسی رابط کاربری</h2>
+این صفحه یادداشت های من برای برنامه نویسی GUI با استفاده از کتاب خانه GTK است که با دو زبان C و Python سعی در آموختن آن داشته ام. قسمت اول زبان C است. <br><br>
+ برای دیدن یادداشت های pyGTK <a href="#pygtk">روی این لینک</a>کلیک کنید.<br> 
+یک برنامه خیلی مفید برای طراحی GUI نرافزار glade است. با کد زیر میتوانید آن را از ریپوزیتوری نصب کنید
+<pre>sudo aptitude install glade</pre>
+این برنامه با GTK+3 سازگاری دارد.
+     <pre>
+	#include &lt;gtk/gtk.h&gt;
+
+	int main( int   argc,
+		  char *argv[] )
+	{
+	    GtkWidget *window;
+	    
+	    gtk_init (&argc, &argv);
+	    
+	    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	    gtk_widget_show  (window);
+	    
+	    gtk_main ();
+	    
+	    return(0);
+	}
+    </pre>
+
+برای کامپایل برنامه بالا در لینوکس از فرمان زیر استفاده میکنیم:
+<pre>gcc base.c -o base pkg-config gtk+-2.0 --cflags --libs</pre>
+
+
+
+<br><br><hr><a id=pygtk></a>
+<h2>برنامه نویسی GTK در پایتون</h2>
+یک کد بسیار ساده شده و بدون استفاده از کلاس برای ساختن یک لی آوت:
+<pre>
+import gtk
+
+w=gtk.Window(gtk.WINDOW_TOPLEVEL)
+w.set_title("hello World!")
+t=gtk.Table(2, 2, True)
+w.add(t)
+b=gtk.Button("b1")
+t.attach(b, 0, 1, 0, 1)
+b.show()
+t.show()
+w.show()
+gtk.main()
+</pre>
+
+<h3>ترسیم</h3>
+بهترین آموزش گرافیک در pyGTK در 
+<a href="http://www.linuxplanet.com/linuxplanet/tutorials/6750/1">این لینک</a>
+بود
+
+
+<br><br><br>
+      <div class="ltr">
+	<hr>
+	<a href="https://www.gtk.org/tutorial1.2/gtk_tut-1.html">اینک۱</a><br>
+	<a href="http://gnipsel.com/glade/glade01b.html">GLADE</a><br>
+	<a href="http://www.pygtk.org/pygtktutorial">PYGTK</A>
+     </div>
+   </div>
+   <div class="header footer"><a href="http://transimia.github.io">&#x1F3E0</a></div>
+</div>
+</body>
+

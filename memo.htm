@@ -1,0 +1,2521 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="styledark.css">
+</head>
+
+<body class="pattern3">
+<div class="container">
+   <div class="header ltr"> </div>
+   <div class="content ltr">
+	<h3>memo.</h3>
+	<ul>
+		<li><a href="#android">android adb</a></li>
+		<li><a href="#apache">apache2</a></li>
+		<li><a href="#arp">arp-scan</a></li>
+		<li><a href="#avconv">avconv or ffmpeg</a></li>
+		<li><a href="#awk">awk</a></li>
+		<li><a href="#barcode">barcode</a></li>
+		<li><a href="#base64">base64</a></li>
+		<li><a href="#bashGUI">bashGUI (zenity)</a></li>
+		<li><a href="#bash">bash</a></li>
+		<li><a href="#cdparanoia">cdparanoia</a></li>
+		<li><a href="#css">css</a></li>
+		<li><a href="#festival">festival</a></li>
+		<li><a href="#find">find</a></li>
+		<li><a href="#ftp">ftp</a></li>
+		<li><a href="#git">git</a></li>
+		<li><a href="#grep">grep</a></li>
+		<li><a href="#hplip">hplip</a></li>
+		<li><a href="#HTML">HTML</a></li>
+		<li><a href="#ifconfig">ifconfig</a></li>
+		<li><a href="#imagemagick">imagemagick</a></li>
+		<li><a href="#irc">irc chat</a></li>
+		<li><a href="#keyboard">keyboard</a></li>
+		<li><a href="#lighttpd">lighttpd</a></li>
+		<li><a href="#melt">melt</a></li>
+		<li><a href="#mplayer">mplayer</a></li>
+		<li><a href="#ncftp">ncftp</a></li>
+		<li><a href="#pdfcrop">pdfcrop</a></li>
+		<li><a href="#play">play</a></li>
+		<li><a href="#qemu">qemu</a></li>
+		<li><a href="#slax">slax</a></li>
+		<li><a href="#arecord">arecord</a></li>
+		<li><a href="#steam">steam</a></li>
+		<li><a href="#stty">stty</a></li>
+		<li><a href="#svn">svn</a></li>
+		<li><a href="#tor">tor</a></li>
+		<li><a href="#unicode">unicode</a></li>
+		<li><a href="#useragent">useragent</a></li>
+		<li><a href="#virtualbox">virtualbox</a></li>
+		<li><a href="#vim">vim</a></li>
+		<li><a href="#vym">vym</a></li>
+		<li><a href="#wget">wget</a></li>
+		<li><a href="#xclip">xclip</a></li>
+		<li><a href="#xxxterm">xxxterm</a></li>
+		<li><a href="#youtube">youtube-dl</a></li>
+		<li><a href="#xdotool">xdotool</a></li>
+		<li><a href="#other">other</a></li>
+	</ul>
+
+<hr>
+
+<p><a id="adnroid" href="#">adnroid</a><pre>
+#	http://www.addthis.com/blog/2013/07/22/10-tips-for-android-emulator/
+#
+# android avd # start Android Virtual Device (avd)
+android avd
+
+#
+
+
+### adb starting server
+#connect device with active usb-debugin-mod
+adb kill-server
+sudo adb start-server
+adb devices
+adb push ./local device/dir/
+adb pull ...
+adb shell
+        |__ $ls
+        |__ $mkdir myFiles
+        |__ $su
+        |__ #reboot -p
+</pre></p><hr>
+<p><a id="apache" href="#">apache</a><pre>
+###############################################
+# 
+#  install and configur web server
+#  using
+#
+#  APACHE2
+#
+###############################################
+
+sudo dpkg-reconfigure mysql-server-5.5
+#reset pass
+
+mysql -u root -p
+#enterpass
+mysql>CREATE DATABASE testdb;
+mysql>SHOW DATABASES;
+
+
+--------------------------------------------------
+
+chmod 0777 system/cache/
+chmod 0777 system/logs/
+chmod 0777 system/download/
+chmod 0777 system/upload/
+chmod 0777 image/
+chmod 0777 image/cache/
+chmod 0777 image/catalog/
+chmod 0777 config.php
+chmod 0777 admin/config.php
+
+--------------------------------------------------
+
+sudo sudo apt-get install curl libcurl3 libcurl3-dev php5-curl php5-mcrypt
+
+php5enmod mcrypt
+
+sudo apt-get install php5-gd
+
+sudo /etc/init.d/apache2 restart
+</pre>
+</p>
+<p><a id="arp" href="#">arp</a><pre>
+#############
+#
+#   http://www.nta-monitor.com/wiki/index.php/Arp-scan_User_Guide
+#
+#########################
+
+arp-scan --interface=eth0 --localnet
+arp-scan -l-I eth0
+</pre></p><hr>
+<p><a id="avconv" href="#">avconv</a><pre>
+#https://trac.ffmpeg.org/wiki/Encode/H.264
+https://trac.ffmpeg.org/wiki
+
+### COMPILE ###
+sudo aptitude install libmp3lame-dev libx264-dev libxvidcore-dev
+./configure  --enable-gpl --enable-libmp3lame --enable-libxvid --enable-libx264
+make && sudo make install
+###############
+
+
+### best file size optimization: ###
+
+ffmpeg -i inputfile -s 320x240 -c:v libx264 -crf 30 out.mp4
+#rising "crf" falling quality
+####################################
+
+
+
+sudo apt-get install libavcodec-extra-53
+
+#FIRST UPDATE FFMPEG
+
+#reduce video size 
+
+# -i filename		input file('s)
+#			without outpute file name it will return
+#			some information about this filename 
+
+# -s 640x480		output resolution
+# -ss 00:00:00  	starting positsion
+# -t 			duration hh:mm:ss[.xxx]
+# -y			Overwrite output whithout asking
+# -c:a libmp3lame	audio codec is mp3lame(mp3)
+# -c:v libx264		video codec is x264 (flv) you cat set -crf
+# -crf 			is quality(0-51)if 51 rized quality will fall 
+# -codec copy		just copy original codec
+# -preset medium	can be ultrafast, fast, medium, slow, veryslow
+# -map 0 		select all streams from input file
+# -map 0:v 		will map all videos
+# -map 0:a:1 		will map audio stream
+# -r 24			force bitrate to 24 fps
+# -b:v 1555k
+# -b 200k               bitrate
+# -r 24                 framerate
+
+
+# -ac 1			Set the number of audio channels
+# -ar 44100Hz		Set the audio sampling frequency
+# -an 			no audio recording
+# -ab 32k		audio bitrate
+# -target type		vcd,svcd,dvd,dv,dv50,pal-vcd,ntsc-svcd 
+#			(bitrate, codecs, buffer sizes) are then set automatically
+
+# -qscale 1		constant quality (but a variable bitrate) 1= excellent ,31= worst
+
+#####	video filters
+
+# delogo		filter that remove logo from inputvideo
+# -vf			video filter
+	-vf "scale=iw*2:ih" # iw = input width
+	-vf scale=iw/2:-1
+	-vf scale=320:-1
+	-vf scale=320:240
+
+# drawtext
+# fade
+
+#############examples
+
+### subtitle
+ffmpeg -i subtitle.srt subtitle.ass
+avconv -i in.avi -i ubtitleass -c copy -map 0:0 -map 0:1 -map 1:0 -y out.mkv
+
+### Join Merge Concatenate
+#ffmpeg -i concat:"file1.mpg|file2.mpg|file3.mpg" -c copy out.mpg
+#################################################################
+#https://trac.ffmpeg.org/wiki/Concatenate
+#FIRST UPDATE FFMPEG
+ffmpeg -i input1.mp4 -i input2.webm \
+-filter_complex "[0:0] [0:1] [1:0] [1:1] concat=n=2:v=1:a=1 [v] [a]" \
+-map "[v]" -map "[a]" <encoding options> output.mkv
+On the -filter_complex line, the following:
+
+[0:0] [0:1] [1:0] [1:1]
+#tells ffmpeg what streams to send to the concat filter
+#streams 0 and 1 from input 0 (input1.mp4)streams 0 and 1 from input 1 (input2.webm)
+#
+concat=n=2:v=1:a=1 [v] [a]
+# This is the concat filter itself. 
+# n=2 means two input files
+# v=1 there will be one video stream
+# a=1 there will be one audio stream
+# [v] [a] output strams
+#
+#Note that the single quotes around the whole filter section are required.
+#
+-map '[v]' -map '[a]'
+#This tells ffmpeg to use the results of the concat filter rather than the 
+#streams directly from the input files.
+#
+#Note that filters are incompatible with stream copying; you can't use -c copy 
+#with this method. Also, I'm not sure whether softsubs are supported.
+#################################################################
+
+###	DVD
+
+#This is a typical DVD ripping example
+avconv -i DVD.vob -f avi -c:v mpeg4 -b:v 800k -g 300 -bf 2 -c:a libmp3lame -b:a 128k out.avi
+
+#for DVDplayers and SetTopBoxs
+avconv -i input.mp4 -threads auto -c:v mpeg4 -q:v 5 -vtag XVID -f avi -mbd rd -flags +mv4+aic -trellis 2 -cmp 2 -subcmp 2 -g 300 -c:a libmp3lame -ac 2 -q:a 3 -ar 44100 out.avi
+
+avconv -i VTS_02_1.VOB -f avi -c:v mpeg4 -b:v 800k -c:a libmp3lame -s 320x240 -b:a 128k out.avi
+
+###
+
+#low quality divx
+avconv -i inputfile -f avi -c:v libxvid -c:v libmp3lame output.avi
+ffmpeg -i input.avi -c:v mpeg4 -vtag xvid output.avi
+
+#play video using Concat protocol multiple files :
+avplay concat:split1.mpeg\|split2.mpeg\|split3.mpeg
+
+#resize video from this time position and 24 rate
+ffmpeg -i ZDF\ 2009-02-04_225542.MPG -s 640x480 -ss 00:10:15 -acodec copy -vcodec copy -r 24 ZDF.MPG
+
+#avconv -i input.mp4 -c:v libx264 -preset veryslow -crf 22 -c:a copy output.flv
+avconv -i input.mp4 -c:v libx264 -b:v 10k -crf 35 -acodec libmp3lame -ar 11025 output.flv 
+
+#Encode video for the PSP
+#ffmpeg -i "$1" -b 12000 -s 640x480 -vcodec libxvid -ab 32 -ar 24000 -acodec copy -ss 100 -t 50 final_video.mp4
+ffmpeg -i "$1" -s 320x480 -vcodec mpeg4 -ab 32 -ar 24000 -acodec copy final_video.mp4
+
+#mixing new audio file to video
+ffmpeg -i video.avi -i audio.mp3 -map 0 -map 1 -codec copy -shortest output_video.avi
+
+#Convert to mono 32k mp3
+avconv -i input.file -c:a libmp3lame -ac 1 -b:a 32k out.mp3
+
+#Other examples
+avconv -i input.mp4 -s 640x480 -c:v libx264 -y -c:a copy out.mp4
+
+#REDUCE VIDEO SIZE video bitrate 200k and framerate 32
+avconv -i input.mp4 -c:v libx264 -acodec copy -s 640x480 -b 200k -r 32 output.mp4
+ 
+# Iphone video
+ffmpeg -i inFile -s qvga -b 384k -vcodec libx264 -r 23.976 -acodec libfaac -ac 2 -ar 44100 -ab 64k -vpre baseline -crf 22 -deinterlace -o OUT.MP4
+
+# MP3 metadata
+# http://wiki.multimedia.cx/index.php?title=FFmpeg_Metadata
+ffmpeg -i inputfile -metadata title="Movie Title"
+			      author="Artist"
+			      album="Album Artist"
+			      year=""
+			      comment=""
+			      track=""
+			      genre="Genre"
+</pre></p><hr>
+<p><a id="awk" href="#">awk</a>
+<pre>
+##########################
+# remove leading and trailing whitespaces
+awk '{$1=$1}1' file.txt
+
+# remove newline charactor 
+cat out.htm | awk '{printf "%s", $0}'
+
+# add newline coma at end of each line
+cat out.htm | awk '{printf "%s,\n", $0}'
+</pre>
+</p>
+<p><a id="barcode" href="#">barcode</a><pre>
+#
+# Barcode Generator
+#
+
+aptitude install barcode
+
+
+
+
+#
+# QRCode Generator
+#
+
+aptitude install qrencode
+
+qrencode -o outputfile.png 'web link or other stuff'
+</pre></p><hr>
+<p><a id="base64" href="#">base64</a><pre>
+#########
+##
+## enc/decryption with base64
+##
+#########
+
+echo $( echo hello | base64 ) | base64 -d # --decode
+
+# other encryption programs ( ceasar )
+rot13
+</pre></p><hr>
+<p><a id="bashGUI" href="#">bashGUI</a><pre>
+dialog
+gtk-server
+wish
+
+  other:
+    yad (improved zenity)
+    xdialog
+
+...
+</pre></p><hr>
+<p><a id="bash" href="#">bash</a><pre>
+######################### in top of Scripts
+#!/bin/bash
+
+################################ shellshock
+http://techblog.willshouse.com/2014/09/26/how-to-update-bash-on-ubuntu-10-10-maverick-fix-shellshock/
+############################## Upgrade BASH
+
+git clone git://git.sv.gnu.org/bash.git
+cd bash
+./configure
+make
+make install
+###########################################
+## for loop_ filename with whitespaces
+## http://www.cyberciti.biz/tips/handling-filenames-with-spaces-in-bash.html
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+for f in *
+do
+  echo "$f"
+done
+IFS=$SAVEIFS
+###########################################
+</pre></p><hr>
+<p><a id="cdparanoia" href="#">cdparanoia</a><pre>
+###########################3
+#
+# Rip and Encode Audio CDs
+#
+###########################3
+
+# get detailed information about drive and audio CD
+cdparanoia -vsQ
+
+# Rip Audio CD and Create .WAV Track Files
+cdparanoia -B
+
+# Encode To .MP3 Format
+lame track01.cdda.wav
+
+# Encode To .OGG Format
+oggenc track01.cdda.wav
+oggenc -b 500 track01.cdda.wav -o output01.ogg
+</pre></p><hr>
+<p><a id="css" href="#">css</a><pre>
+#################################################################
+#
+# CSS style sheet
+#
+#   http://www.mediacollege.com/internet/css/ul-list.html
+#
+#################################################################
+</pre></p><hr>
+<p><a id="festival" href="#">festival</a><pre>
+#####################
+#
+#	http://ubuntuforums.org/showthread.php?t=751169
+#	http://ubuntuforums.org/showthread.php?t=677277
+#
+#####################
+#alternative
+espeak -v de "Hallo, wie geht es?"
+espeak -v fa "سلام چطوری؟"
+
+### INSTALLATION
+sudo apt-get install festival festvox-en1
+### http://wisercoder.com/install-festival-text-speech-ubuntu/
+# installation
+#festival festlex-cmu festlex-poslex festlex-oald libestools1.2 unzip
+echo hello | festival --tts #test
+### VOICES
+# MBROLA project:
+#http://tcts.fpms.ac.be/synthesis/
+
+# install voices
+# The CMU Arctic voices sound magnitudes better than the standard Festival voices. 
+# They use prerecorded utterances from Project Gutenberg.
+sudo apt-get install festival festlex-cmu festlex-poslex festlex-oald libestools1.2 unzip
+# or just
+sudo apt-get install festlex-cmu
+###
+###
+### change default voice
+#    list of all voices
+festival> (voice.list)
+(ked_diphone en1_mbrola don_diphone us1_mbrola)
+#    choose voice like this: (voice_*)
+festival> (voice_us1_mbrola)
+###
+###
+
+#convert text to wav
+cat letter.txt | text2wave | lame - file.mp3 && mplayer file.mp3
+
+
+
+# lookin g for other voic or lang (festvox-*)
+aptitude search festvox- 
+
+#interactiv mode
+festival> (quit)
+festival> (voice.list) #list of voices
+festival> (voice_us2_mbrola) #select a voice
+festival> (set! voice_default 'voice_nitech_us_rms_arctic_hts)#default voice
+festival> (SayText "Hello World!")
+festival> (tts "sometext.txt" nil)
+festival> (intro)
+
+############## GLOBAL TTS SETTING
+#Deutsch sprache
+#sudo apt-get install language-pack-de
+#   #Sprache noch in /etc/default/locale wie gefolgt abändern:
+#LANG="de_DE.UTF-8"
+#################################
+</pre></p><hr>
+<p><a id="find" href="#">find</a><pre>
+###########################
+#
+#   search for files
+#
+#     find    # CLI command
+#
+###########################
+
+find ./ -type f -regex '.*\.\(MP4\|mp4\|mpg\|ts\|TS\|dat\)'
+</pre></p><hr>
+<p><a id="ftp" href="#">ftp</a><pre>
+# http://www.cyberciti.biz/faq/linux-unix-ftp-commands/
+
+# mozilla
+
+ftp://ftpUserName@ftp.nixcraft.net.in
+ftp://ftp.freebsd.org/
+ftp://ftp@ftp.freebsd.org/
+ftp://userName:Password@ftp.nixcraft.net.in/
+ftp://ftp:ftp@ftp.freebsd.org/
+
+# ftp command:
+
+ftp user@ftp.example.com
+ftp ftp.freebsd.org
+
+# Sample session:
+
+Trying 87.51.34.132...
+Connected to ftp.freebsd.org.
+220 ftp.beastie.tdk.net FTP server (Version 6.00LS) ready.
+Name (ftp.freebsd.org:vivek): ftp
+331 Guest login ok, send your email address as password.
+Password:
+230 Guest login ok, access restrictions apply.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp>
+
+##############
+
+ftp> ls
+ftp> cd dirName
+ftp> get resume.pdf
+
+local: resume.pdf remote: resume.pdf
+229 Entering Extended Passive Mode (|||55093|)
+150 Opening BINARY mode data connection for 'resume.pdf' (53077 bytes).
+100% |***************************| 53077       12.58 KiB/s    00:00 ETA
+226 Transfer complete.
+53077 bytes received in 00:04 (12.57 KiB/s)
+
+##############
+
+ftp> get data.tar.gz backup.tar.gz
+
+# To change directory on your local system, enter:
+ftp> lcd /path/to/new/dir
+ftp> lcd /tmp
+
+# Print local directory:
+ftp> lpwd
+
+ftp> pwd
+
+# Download Multiple Files
+ftp> mget *
+
+ftp> delete output.jpg
+
+# In this example, upload logo.jpg, enter:
+ftp> put logo.jpg
+
+# Upload Multiple Files
+ftp> mput *
+ftp> mput *.pl
+
+ftp> mkdir dirName
+
+ftp> rmdir dirName
+
+# Set The Mode Of File Transfer
+ftp> ascii
+ftp> binary
+
+# Connect To Another FTP Server
+ftp> open ftp.nixcraft.net.in
+
+# Exit the FTP Session
+ftp> quit
+ftp> bye
+
+
+ftp> ?
+ftp> help
+
+ftp> help commandName
+ftp> help chmod
+
+chmod      	change file permissions of remote file
+
+
+</pre></p><hr>
+<p><a id="git" href="#">git</a><pre>
+##################3
+#  http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
+#
+# https://guides.github.com/
+#
+##################
+
+#download latest files
+git clone www.github.com/username/project.git
+
+
+
+
+
+
+
+#branch 
+#دایرکتوری های مختلف یک پروژه که حاوی تغییرات افراد مختلف است
+#master
+#دایرکتوری اصلی که از merg کردت branch ها تشکیل میشود
+#commit
+# وقتی commit میکنید یک snapshot از پروژه میسازید که میتوان از آنجا پروژه را restore کنید
+
+#help
+# list of 21 cimmnad
+git help
+
+#config
+#simple configuration
+#login automaticaly,this way:
+git config --global user.name felan 
+git config --global user.email felan@beh.man
+
+# start new repository
+git init
+
+# check the status of your repo &...
+git status
+
+#after U add files they are include in gits snapshot of repo
+git add
+
+#make snapshot after any change do this
+git commit -m "hessage here..."
+
+#make your own branch of proj called cats
+git branch cats
+
+#checks out repo that U R not currently inside
+git checkout x
+#to look at the master branch
+git checkout master
+#to look at another branch
+git checkout cats
+
+#When you’re done working on a branch,
+#you can merge your changes back to the 
+#master branch, which is visible to all
+#collaborators
+git merge cats
+
+#push local commit online on github
+git push
+
+#pull latest changes down to your computer
+git pull
+
+#################
+#
+# delete commits
+#
+   delete all of our commits history, 
+   but keep the code in its current state, try this:
+
+   # Check out to a temporary branch:
+git checkout --orphan TEMP_BRANCH
+   # Add all the files:
+git add -A
+   # Commit the changes:
+git commit -am "Initial commit"
+   # Delete the old branch:
+git branch -D master
+   # Rename the temporary branch to master:
+git branch -m master
+   # Finally, force update to our repository:
+git push -f origin master
+
+
+</pre></p><hr>
+<p><a id="grep" href="#">grep</a><pre>
+#####################################################3
+#
+#	link:
+#	http://www.selectorweb.com/grep_tutorial.html
+#	http://www.robelle.com/smugbook/regexpr.html
+#
+#####################################################3
+
+#Ranges: 
+#    [0-3]   is the same as   [0123] 
+#    [a-k]   is the same as   [abcdefghijk] 
+#    [A-C] is the same as [ABC] 
+#    [A-Ca-k] is the same as [ABCabcdefghijk] 
+#There are also some alternate forms : 
+#    [[:alpha:]] is the same as [a-zA-Z] 
+#    [[:upper:]] is the same as [A-Z] 
+#    [[:lower:]] is the same as [a-z] 
+#    [[:digit:]] is the same as [0-9] 
+#    [[:alnum:]] is the same as [0-9a-zA-Z] 
+#    [[:space:]] matches any white space including tabs
+grep -o http[^[:space:]]*.jpg
+grep -o '<a href=.\{,\}</a>' file.htm
+
+#matches lines containing the "I am a cat" or "I am a dog".
+grep "I am a \(cat\|dog\)" 
+
+</pre></p><hr>
+<p><a id="hplip" href="#">hplip</a><pre>
+
+http://prdownloads.sourceforge.net/hplip/hplip-3.16.2.tar.gz
+
+cd holip-3*
+./install.py
+</pre></p><hr>
+<p><a id="HTML" href="#">HTML</a><pre>
+<!--
+HTML Cheatsheet
+By Webmonkey Staff
+Keep this cheatsheet handy — it contains the most common HTML tags and their proper syntax.
+
+ 
+Contents
+Basic Tags
+Body Attributes
+Text Tags
+Links
+Formatting
+Tables
+Table Attributes
+Frames
+Frames Attributes
+Forms
+ 
+
+Basic Tags
+<html></html> Creates an HTML document
+
+<head></head> Sets off the title and other information that isn’t displayed on the web page itself
+
+<body></body> Sets off the visible portion of the document
+
+Body Attributes
+<body bgcolor="pink"> Sets the background color, using name or hex value
+
+<body text="black"> Sets the text color, using name or hex value
+
+<body link="blue"> Sets the color of links, using name or hex value
+
+<body vlink="#ff0000"> Sets the color of followed links, using name or hex value
+
+<body alink="#00ff00"> Sets the color of links on click
+
+<body ondragstart="return false" onselectstart="return false"> Disallows text selection with the mouse and keyboard
+
+Text Tags
+<pre></pre> Creates preformatted text
+
+<hl></hl> Creates the largest headline
+
+<h6></h6> Creates the smallest headline
+
+<b></b> Creates bold text
+
+<i></i> Creates italic text
+
+<tt></tt> Creates teletype, or typewriter-style text
+
+<cite></cite> Creates a citation, usually italic
+
+<em></em> Emphasizes a word (with italic or bold)
+
+<strong></strong> Emphasizes a word (with italic or bold)
+
+<font size="3"></font> Sets size of font, from 1 to 7
+
+<font color="green"></font> Sets font color, using name or hex value
+
+Links
+<a href="URL"></a> Creates a hyperlink
+
+<a href="mailto:EMAIL"></a> Creates a mailto link
+
+<a href="URL"><img src="URL"> </a> Creates an image/link
+
+<a name="NAME"></a> Creates a target location within a document
+
+<a href="#NAME"></a> Links to that target location from elsewhere in the document
+
+Formatting
+<p></p> Creates a new paragraph
+
+<p align="left"> Aligns a paragraph to the left (default), right, or center.
+
+<br> Inserts a line break
+
+<blockquote></blockquote> Indents text from both sides
+
+<dl></dl> Creates a definition list
+
+<dt> Precedes each definition term
+
+<dd> Precedes each definition
+
+<ol></ol> Creates a numbered list
+
+<ul></ul> Creates a bulleted list
+
+<li></li> Precedes each list item, and adds a number or symbol depending upon the type of list selected
+
+<div align="left"> A generic tag used to format large blocks of HTML, also used for stylesheets
+
+<img src="name"> Adds an image
+
+<img src="name" align="left"> Aligns an image: left, right, center; bottom, top, middle
+
+<img src="name" border="1"> Sets size of border around an image
+
+<hr /> Inserts a horizontal rule
+
+<hr size="3" /> Sets size (height) of rule
+
+<hr width="80%" /> Sets width of rule, in percentage or absolute value
+
+<hr noshade /> Creates a rule without a shadow
+
+Tables
+<table></table> Creates a table
+
+<tr></tr> Sets off each row in a table
+
+<td></td> Sets off each cell in a row
+
+<th></th> Sets off the table header (a normal cell with bold, centered text)
+
+Table Attributes
+<table border="1"> Sets width of border around table cells
+
+<table cellspacing="1"> Sets amount of space between table cells
+
+<table cellpadding="1"> Sets amount of space between a cell’s border and its contents
+
+<table width="500" or "80%"> Sets width of table, in pixels or as a percentage of document width
+
+<tr align="left"> or <td align="left"> Sets alignment for cell(s) (left, center, or right)
+
+<tr valign="top"> or <td valign="top"> Sets vertical alignment for cell(s) (top, middle, or bottom)
+
+<td colspan="2"> Sets number of columns a cell should span (default=1)
+
+<td rowspan="4"> Sets number of rows a cell should span (default=1)
+
+<td nowrap> Prevents the lines within a cell from being broken to fit
+
+Frames
+<frameset></frameset> Replaces the <body> tag in a frames document; can also be nested in other framesets
+
+<frameset rows="value,value"> Defines the rows within a frameset, using number in pixels, or percentage of width
+
+<frameset cols="value,value"> Defines the columns within a frameset, using number in pixels, or percentage of width
+
+<frame> Defines a single frame — or region — within a frameset
+
+<noframes></noframes> Defines what will appear on browsers that don’t support frames
+
+Insert html page in another one:
+<IFRAME name="iframe" src="smaller page url here" width=400 height=500 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=auto></IFRAME>
+
+Frames Attributes
+<frame src="URL"> Specifies which HTML document should be displayed
+
+<frame name="name"> Names the frame, or region, so it may be targeted by other frames
+
+<frame marginwidth="value"> Defines the left and right margins for the frame; must be equal to or greater than 1
+
+<frame marginheight="value"> Defines the top and bottom margins for the frame; must be equal to or greater than 1
+
+<frame scrolling="value"> Sets whether the frame has a scrollbar; value may equal “yes,” “no,” or “auto.” The default, as in ordinary documents, is auto.
+
+<frame noresize="noresize"> Prevents the user from resizing a frame
+
+Forms
+For functional forms, you’ll have to run a script. The HTML just creates the appearance of a form.
+
+<form></form> Creates all forms
+
+<select multiple name="NAME" size=?></select> Creates a scrolling menu. Size sets the number of menu items visible before you need to scroll.
+
+<option> Sets off each menu item
+
+<select name="NAME"></select> Creates a pulldown menu
+
+<option> Sets off each menu item
+
+<textarea name="NAME" cols=40 rows=8></textarea name> Creates a text box area. Columns set the width; rows set the height.
+
+<input type="checkbox" name="NAME"> Creates a checkbox. Text follows tag.
+
+<input type="radio" name="NAME" value="x"> Creates a radio button. Text follows tag
+
+<input type="text" name="NAME" size=20> Creates a one-line text area. Size sets length, in characters.
+
+<input type="submit" value="NAME"> Creates a Submit button
+
+<button type="submit">Submit</button> Creates an actual button that is clicked
+
+<input type="image" border=0 name="NAME" src="name.gif"> Creates a Submit button using an image
+
+<input type="reset"> Creates a Reset button
+
+http://www.webmonkey.com/2010/02/html_cheatsheet/
+
+<!-- HTML5 Video tag -->
+<video controls autoplay>
+	<source src="./ZLN0wMtG5c0.mp4" type="Video/mp4">
+	<source src=”myvideo.mp4” type=”video/mp4>
+	<source src=”myvideo.ogv” type=”video/ogv>	
+</video>
+</pre></p><hr>
+<p><a id="ifconfig" href="#">ifconfig</a><pre>
+# change MAC address
+sudo ifconfig wlan0 down
+sudo ifconfig wlan0 hw ether 0c:30:21:06:dc:f1
+sudo ifconfig wlan0 up
+-->
+</pre></p><hr>
+<p><a id="imagemagick" href="#">imagemagick</a><pre>
+################################################################
+#
+#	imagemagick (convert)
+#	   image manipulation
+#
+# source link :
+#	http://www.imagemagick.org/Usage/crop/
+#	http://xmodulo.com/convert-jpg-image-file-to-pdf-format-on-linux.html
+#
+################################################################
+
+## convert PDF
+convert -density 300x300 -quality 100 in.pdf out.png
+## resize animated gif
+convert cat.gif -extent 120x120+200+70 CAT.gif #set the image size
+convert do.gif -coalesce temporary.gif
+convert temporary.gif -resize 200x smaller.gif
+## transparent background GIF
+#replace all pixels that colors is color of pix(0,0) and telorated 30 % with white 
+convert CAT.gif -fuzz 30% -fill white -draw 'color 0,0 replace' cat.gif
+
+???
+
+### in place converting http://www.imagemagick.org/Usage/basics/#mogrify
+mogrify [options] inputfile
+$mogrify -resize 100x *.jpg
+
+### watermarking
+convert -size 500x20 xc:none -pointsize 18 -gravity center -fill black -annotate 0x0-175+0 "text" label.png
+composite -gravity south label.png ax.jpg out.jpg
+
+### CROP
+convert input.jpg -crop 100x100+10+10 output.jpg
+
+#http://www.imagemagick.org/Usage/montage/
+montage *.jpg out.jpg
+# to tile set of 7 images arranged in single row
+montage *.jpg -mode concatenate -tile x1 out.jpg
+#
+### montage args
+-set label "my name"
+-texture background.gif
+-background black # none lightblue
+-geometry 32x32+5+5
+-gravity center
+-pointsize 24 -fill rgba(0,0,0,0.4) -stroke green -font Arial -label Arial label:mytext
+
+### invert colors
+-negate
+
+######
+-extent geometry     set the image size
+-scale x800 
+-quality 100
+-density 150 
+-trim 
+-sharpen 0x1.0
+-level 20%,80%
+	# http://www.imagemagick.org/Usage/color_mods/#level
+	# (20% is black-level,80% is white-level)
+
+#The "mogrify" command is like "convert" except it is 
+#designed to modify images in place
+
+# PDF
+convert input1.jpg input2.jpg input3.jpg output.pdf
+convert -type Grayscale "picture.png" "picture_nb.png"
+# reduce PDF size
+convert -density 150 -trim in.pdf -quality 50 -sharpen 0x1.0 
+	-type Grayscale -resize 500 -level 5%,75% out.pdf
+# convert all PDF pages to jpg
+convert demo.pdf demo.jpg
+# only convert page number 2 but best quality
+convert -verbose -density 150 -trim file.pdf[5] -quality 100 -sharpen 0x1.0 x:
+convert demo.pdf[2] demo.jpg
+
+#capture screen
+convert x: snapshot.jpg
+convert x:'root' -scale 50% show: 
+convert x:'root[300x400+879+122]' output.png
+convert x:'Calculator' output.png #grab window titled Calculator to file
+convert x:'Calculator[150x150+110+110]' show:
+#find all windows with "Mozilla Firefox" in the title or name...
+xwininfo -root -all | grep "Mozilla Firefox" # list of window IDs
+convert x:0x380057c show: # capture by window ID
+
+
+#basic informations about inp.png
+identify inp.png
+inp.png PNG 305x261 305x261+0+0 8-bit DirectClass 22.1KB 0.000u 0:00.000
+
+#alternative disply method is show: win: x:
+convert image.png x:
+
+#resize picture
+display -resize 800x600\> photo.jpg
+convert input.png -scale 20% output.png
+
+#   you can get a list of all valid settings by -list :
+convert -list gravity
+
+#	-gravity South
+#	 	 Center
+
+#custom meta-data 
+convert -set my_meta-data "##### my metadata #####" input.png output.png
+
+#animation
+convert [1-3].jpg -delay 50 -loop 0 animate.gif
+
+#32x32 is output resolution +0+0 is offset
+convert input.jpg -crop 32x32+0+0 output.jpg
+
+#####AnimationGIF
+convert [1-7].jpg -loop 0 animate.gif
+#make animation.gif one frame per secend and half size
+convert animate.gif -scale 50% -set comment "后滩\ntextn" -set delay 100x100 animate.gif
+##########
+</pre></p><hr>
+<p><a id="irc" href="#">irc</a><pre>
+###########################################
+#
+#     IRC chat commands
+#	
+#	using HexChat or ircII
+#
+###########################################
+#aptitude install ircii
+
+### servers
+    EFnet       irc.efnet.org
+    IcQ         irc-m02a.orange.icq.com
+    FreeNode    irc.freenode.net
+    susans.org  irc.susans.org
+		irc.snoonet.org #iran
+		irc.efnet.org #tehran
+/help
+
+/msg NickServ help REGISTER
+
+/msg NickServ REGISTER <password> valid@email.com
+
+#follow the instruction in verification email
+
+/msg nickserv identify <password>
+
+/join ##feminism</pre></p><hr>
+<p><a id="keyboard" href="#">keyboard</a><pre>
+showkey
+setkeycodes
+
+# http://lackof.org/matt/hacking/keyboard/
+</pre></p><hr>
+<p><a id="lighttpd" href="#">lighttpd</a><pre>
+##########################################################
+##
+## http://www.ubuntugeek.com/lighttpd-webserver-setup-with-php5-and-mysql-support.html
+##
+## lighttpd(lighty) webservice deamon
+##
+##########################################################
+
+
+
+#https://wiki.ubuntu.com/Lighttpd%2BPHP
+sudo apt-get install lighttpd php5-cgi
+sudo lighty-enable-mod fastcgi 
+sudo lighty-enable-mod fastcgi-php
+sudo service lighttpd force-reload
+
+echo "<?php phpinfo();?>" > /var/www/index.php
+firefox --private localhost #127.0.0.1
+
+
+
+
+
+
+
+# PHP5 and lighty
+sudo apt-get install lighttpd php5-cgi
+### activate php :
+sudo lighty-enable-mod fastcgi
+sudo lighty-enable-mod fastcgi-cgi
+sudo service lighttpd force-reload
+#sudo lighty-enable-mod cgi
+
+#To enable PHP5 in Lighttpd, we must modify two files
+echo "cgi.fix_pathinfo = 1" >> /etc/php5/cgi/php.ini
+# Append this modules to /etc/lighttpd.conf
+##	server.modules = (
+##	"mod_access",
+##	"mod_alias",
+##	"mod_accesslog",
+##	"mod_fastcgi",
+##	# "mod_rewrite",
+##	# "mod_redirect",
+##	# "mod_status",
+##	# "mod_evhost",
+##	# "mod_compress",
+##	# "mod_usertrack",
+##	# "mod_rrdtool",
+##	# "mod_webdav",
+##	# "mod_expire",
+##	# "mod_flv_streaming",
+##	# "mod_evasive"
+##	)
+##	fastcgi.server = ( ".php" => ((
+##	"bin-path" => "/usr/bin/php5-cgi",
+##	"socket" => "/tmp/php.socket"
+##	)))
+
+</pre></p><hr>
+<p><a id="melt" href="#">melt</a><pre>
+###########################################################
+#
+#	linux command line, 
+#	   Video Editing Tools
+#
+#   http://mltframework.org/twiki/bin/view/MLT/MltMelt
+#
+###########################################################
+
+#I joined the (h264) video together, added a 60 frame fade and replaced sound with a sound track using:
+melt -video-track vid1.avi vid2.avi -mix 60 -mixer luma vid3.avi \
+   -mix 60 -mixer luma -audio-track vorbis:track1.ogg vorbis:track2.ogg \
+   -consumer avformat:OUT.avi acodec=libmp3lame vcodec=libx264
+
+#join videos to single video file
+melt video1.avi video* -consumer avformat:outputFile.avi
+</pre></p><hr>
+<p><a id="mplayer" href="#">mplayer</a><pre>
+##########################################3
+#
+#
+#
+#
+#
+##########################################3
+
+
+video fullscreen:
+# mplayer -fs videofilename
+
+
+video loop forever:
+# mplayer -loop 0 videofilename
+
+video filters(rotation):
+# mplayer -vf rotate=1 videofilename
+
+disable video:
+# mplayer -vo null videofilename
+
+disable audio:
+# mplayer -ao null videofilename
+
+</pre></p><hr>
+<p><a id="ncftp" href="#">ncftp</a><pre>
+##############################################
+#
+#
+#  FTP Client
+#  http://www.ncftp.com/ncftp/doc/ncftp.html
+#
+#
+##############################################
+
+#   pc$ncftp
+#   ncftp>
+	  open -u user -p pass server.com
+	  put -R ./wp/* ./
+
+#local ls
+	lls
+
+#server ls
+	ls
+
+#download 
+	get *.jpg
+
+
+##################################
+##################################
+#
+#	Native FTP
+#
+##################################
+
+#	pc$ftp
+...
+	name(..): username
+...
+	password: pass
+
+
+</pre></p><hr>
+<p><a id="pdfcrop" href="#">pdfcrop</a><pre>
+# aptitude install texlive-extra-utils
+</pre></p><hr>
+<p><a id="play" href="#">play</a><pre>
+#############################
+#
+#  play sound file or tones and musical notes
+#
+#  file:    play.memo
+#
+############################
+
+# orgens
+play -n -c1 synth sin %-12 fade h 1 2 1
+
+# play wave file
+play alarm.wav
+
+# record voice
+#
+# sox -----> sox
+#      |
+#      ----> rec
+#      |
+#      ----> play
+#
+#	$sox -t alsa default recorded.wav
+#	$rec recorde.wav
+#	$play recorded.wav
+#
+</pre></p><hr>
+<p><a id="qemu" href="#">qemu</a><pre>
+################################################################
+#
+#	Qemu
+#
+#	virtual machin. multi Architecture Emulator
+#
+################################################################
+
+# http://www.android-x86.org/documents/qemuhowto
+# for beter performanc and activate KVM 
+# run qemu with root permision
+
+#################################################################
+#
+# ANDROID
+#
+##################################
+
+## Create 1 G-byte image for storage
+qemu-img create ~/android-x86/android-4.0.img 1G
+
+## start virtual machin based in AndroidLiveCD for installation
+sudo modprobe kvm
+kvm -m 512 -cdrom android-x86-4.3-20130725.iso -hda ./android4.3vm-qemu.img -boot d
+
+## after installation you can start emulator just by this command
+kvm -m 512 -hda ~/android-x86/android-4.0.img
+
+## shared directory --this method dosnt work 
+mount -t 9p -o trans=virtio,version=9p2000.L tag ~/SHARED/
+qemu -hda winxp.img -hdb fat:rw:~/SHARED/ -m 512M
+
+
+-soundhw all
+-cdrom /dev/cdrom
+-net none
+
+########################
+#
+#	KVM
+#
+########################
+   https://software.intel.com/en-us/articles/qemu-boots-and-runs-very-slow-on-linux
+########################
+sudo modprobe –i kvm-intel
+lsmod |grep kvm
+
+
+
+
+
+
+#################################################################
+#
+# WINDOWS
+#
+##################################
+
+## create image file
+qemu-img create winxp.qemu.img 5G
+## start qemu with installation CD iso
+kvm -m 512 -cdrom windowsXP.iso -hda winxp.qemu.img -boot d
+## start virtualy img file
+kvm -m 512 -hda winxp.qemu.img
+
+#samba file sharing
+...
+ 
+# networking USB & more ...
+# http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:qemu
+
+# sharing samba
+# http://resources.infosecinstitute.com/shared-folders-samba-qemu/
+
+
+qemu-img allows you to create, convert and modify images offline
+## make sure your virtual image file is in RAW format(QCOW to RAW):
+qemu-img info winXP.qemu.img
+
+
+######################################################
+##
+## http://wiki.linuxquestions.org/wiki/
+##        Qemu_transfer_files_between_host_and_guest_via_the_floppy_drive
+##
+######################################################
+dd if=/dev/zero of=floppy.dd bs=1440K count=1
+## mkfs.ext2 floppy.dd
+qemu -boot c -net none -hda winXP.img -m 512 -fda ./floppy.dd
+## format it in windows and copy your files
+## now shotdown and mount image in linux
+mount -o loop ./floppy.dd /mnt
+
+##### nime kare
+dd -f=/dev/zero 0f=disk1.dd bs=1G count=1
+# set partition and fs on it
+cfdisk disk1.dd
+qemu -m 512 -hda winxp.img -hdb 
+#format it in windows
+
+# mount it
+# I found the answer was to offset the mount command because the image 
+# was partitioned (i.e. fdisked) and the filesystem further into the image:
+mount -o loop,offset=32256 ./disk1.dd /mnt
+</pre></p><hr>
+<p><a id="slax" href="#">slax</a><pre>
+# slax package manager 
+slaxpkg
+
+# convert it to slax module
+tgz2lzm filename.tgz filename.lzm 
+
+deb2lzm filename.deb filename.lzm
+
+# finish & use it. just copy lzm module to 'slax>module
+
+</pre></p><hr>
+<p><a id="arecord" href="#">arecord</a><pre>
+############################################
+#
+# recording voices in linux command line
+#
+###########################################
+
+sox -----> sox
+     |
+     ----> rec
+     |
+     ----> play
+
+$sox -t alsa default recorded.wav
+$rec recorde.wav
+$play recorded.wav
+
+##########################################
+#	aptitude install alsa-utils
+#	arecord outpute.wav
+##########################################
+
+arecord -V stereo -c 2 -f dat -d 900 out.wav
+arecord -L # List all PCMs defined
+arecord --help
+</pre></p><hr>
+<p><a id="steam" href="#">steam</a><pre>
+#################################
+#
+#	steam
+#	   game center from Valv vo.
+#
+#################################
+
+#fix steam error on 64bit systems
+http://ubuntuforums.org/showthread.php?t=2233005
+</pre></p><hr>
+<p><a id="stty" href="#">stty</a><pre>
+#################################################
+#
+#	#####    ####   ###    ###   ###
+#	#   ##  #          #      #     #
+#	#####    ###     ##     ##    ##
+#	#  #        #   #        #   #  
+#	#   #   ####   ####  ####   ####
+#	
+#################################################
+
+setup serial port using stty
+#stty -F /dev/ttyUSB0 9600
+#cat /dev/ttyUSB0
+
+
+#screen /dev/ttyUSB0 9600
+exit from screen using "Ctrl+a and k"
+
+#tail -f /dev/ttyUSB0
+
+#echo 'Hello!' > /dev/ttyUSB0
+
+
+
+
+############################
+http://playground.arduino.cc/Interfacing/LinuxTTY
+
+stty -F /dev/ttyUSB0 cs8 9600 ignbrk -brkint -imaxbel 
+	-opost -onlcr -isig -icanon -iexten -echo -echoe 
+	-echok -echoctl -echoke noflsh -ixon -crtscts
+
+</pre></p><hr>
+<p><a id="svn" href="#">svn</a><pre>
+####################################
+#
+#   apache version controle client
+#
+#   svn = subversion
+#
+#   http://www.resiprocate.org/Quick_Subversion_Checkout_and_Compilation_HOWTO
+#   http://stackoverflow.com/questions/5305943/how-to-use-sourceforge
+#
+####################################
+#
+## svn checkout ttps://svn.code.sf.net/p/{Your Project Name Goes Here}/code/trunk licaldir
+#for example:
+## svn checkout https://svn.code.sf.net/p/{Your Project Name Goes Here}/code/trunk newDir
+#
+####################################
+
+
+install svn client:
+# sudo aptitude install subversion
+
+
+getting the source code:
+# svn checkout https://svn.resiprocate.org/rep/resiprocate/main  resiprocate
+This will create a 'resiprocate' subdirectory under whatever your 
+current working directory is. 
+Furthermore, svn commands will work inside and below that directory.
+
+
+example
+# svn checkout svn://svn.code.sf.net/p/sdccstm/code/trunk sdccstm-code
+
+</pre></p><hr>
+<p><a id="tor" href="#">tor</a><pre>
+## Configuration file for a typical Tor user
+## Last updated 9 October 2013 for Tor 0.2.5.2-alpha.
+## (may or may not work for much older or much newer versions of Tor.)
+##
+## Lines that begin with "## " try to explain what's going on. Lines
+## that begin with just "#" are disabled commands: you can enable them
+## by removing the "#" symbol.
+##
+## See 'man tor', or https://www.torproject.org/docs/tor-manual.html,
+## for more options you can use in this file.
+##
+## Tor will look for this file in various places based on your platform:
+## https://www.torproject.org/docs/faq#torrc
+
+## Tor opens a socks proxy on port 9050 by default -- even if you don't
+## configure one below. Set "SocksPort 0" if you plan to run Tor only
+## as a relay, and not make any local application connections yourself.
+#SocksPort 9050 # Default: Bind to localhost:9050 for local connections.
+#SocksPort 192.168.0.1:9100 # Bind to this address:port too.
+
+## Entry policies to allow/deny SOCKS requests based on IP address.
+## First entry that matches wins. If no SocksPolicy is set, we accept
+## all (and only) requests that reach a SocksPort. Untrusted users who
+## can access your SocksPort may be able to learn about the connections
+## you make.
+#SocksPolicy accept 192.168.0.0/16
+#SocksPolicy reject *
+
+## Logs go to stdout at level "notice" unless redirected by something
+## else, like one of the below lines. You can have as many Log lines as
+## you want.
+##
+## We advise using "notice" in most cases, since anything more verbose
+## may provide sensitive information to an attacker who obtains the logs.
+##
+## Send all messages of level 'notice' or higher to /var/log/tor/notices.log
+#Log notice file /var/log/tor/notices.log
+## Send every possible message to /var/log/tor/debug.log
+#Log debug file /var/log/tor/debug.log
+## Use the system log instead of Tor's logfiles
+#Log notice syslog
+## To send all messages to stderr:
+#Log debug stderr
+
+## Uncomment this to start the process in the background... or use
+## --runasdaemon 1 on the command line. This is ignored on Windows;
+## see the FAQ entry if you want Tor to run as an NT service.
+#RunAsDaemon 1
+
+## The directory for keeping all the keys/etc. By default, we store
+## things in $HOME/.tor on Unix, and in Application Data\tor on Windows.
+#DataDirectory /var/lib/tor
+
+## The port on which Tor will listen for local connections from Tor
+## controller applications, as documented in control-spec.txt.
+#ControlPort 9051
+## If you enable the controlport, be sure to enable one of these
+## authentication methods, to prevent attackers from accessing it.
+#HashedControlPassword 16:8776A3D701AD684053EC4C
+#CookieAuthentication 1
+
+############### This section is just for location-hidden services ###
+
+## Once you have configured a hidden service, you can look at the
+## contents of the file ".../hidden_service/hostname" for the address
+## to tell people.
+##
+## HiddenServicePort x y:z says to redirect requests on port x to the
+## address y:z.
+
+#HiddenServiceDir /var/lib/tor/hidden_service/
+#HiddenServicePort 80 127.0.0.1:80
+
+#HiddenServiceDir /var/lib/tor/other_hidden_service/
+#HiddenServicePort 80 127.0.0.1:80
+#HiddenServicePort 22 127.0.0.1:22
+
+################ This section is just for relays #####################
+#
+## See https://www.torproject.org/docs/tor-doc-relay for details.
+
+## Required: what port to advertise for incoming Tor connections.
+#ORPort 9001
+## If you want to listen on a port other than the one advertised in
+## ORPort (e.g. to advertise 443 but bind to 9090), you can do it as
+## follows.  You'll need to do ipchains or other port forwarding
+## yourself to make this work.
+#ORPort 443 NoListen
+#ORPort 127.0.0.1:9090 NoAdvertise
+
+## The IP address or full DNS name for incoming connections to your
+## relay. Leave commented out and Tor will guess.
+#Address noname.example.com
+
+## If you have multiple network interfaces, you can specify one for
+## outgoing traffic to use.
+# OutboundBindAddress 10.0.0.5
+
+## A handle for your relay, so people don't have to refer to it by key.
+#Nickname ididnteditheconfig
+
+## Define these to limit how much relayed traffic you will allow. Your
+## own traffic is still unthrottled. Note that RelayBandwidthRate must
+## be at least 20 KB.
+## Note that units for these config options are bytes per second, not bits
+## per second, and that prefixes are binary prefixes, i.e. 2^10, 2^20, etc.
+#RelayBandwidthRate 100 KB  # Throttle traffic to 100KB/s (800Kbps)
+#RelayBandwidthBurst 200 KB # But allow bursts up to 200KB/s (1600Kbps)
+
+## Use these to restrict the maximum traffic per day, week, or month.
+## Note that this threshold applies separately to sent and received bytes,
+## not to their sum: setting "4 GB" may allow up to 8 GB total before
+## hibernating.
+##
+## Set a maximum of 4 gigabytes each way per period.
+#AccountingMax 4 GB
+## Each period starts daily at midnight (AccountingMax is per day)
+#AccountingStart day 00:00
+## Each period starts on the 3rd of the month at 15:00 (AccountingMax
+## is per month)
+#AccountingStart month 3 15:00
+
+## Administrative contact information for this relay or bridge. This line
+## can be used to contact you if your relay or bridge is misconfigured or
+## something else goes wrong. Note that we archive and publish all
+## descriptors containing these lines and that Google indexes them, so
+## spammers might also collect them. You may want to obscure the fact that
+## it's an email address and/or generate a new address for this purpose.
+#ContactInfo Random Person <nobody AT example dot com>
+## You might also include your PGP or GPG fingerprint if you have one:
+#ContactInfo 0xFFFFFFFF Random Person <nobody AT example dot com>
+
+## Uncomment this to mirror directory information for others. Please do
+## if you have enough bandwidth.
+#DirPort 9030 # what port to advertise for directory connections
+## If you want to listen on a port other than the one advertised in
+## DirPort (e.g. to advertise 80 but bind to 9091), you can do it as
+## follows.  below too. You'll need to do ipchains or other port
+## forwarding yourself to make this work.
+#DirPort 80 NoListen
+#DirPort 127.0.0.1:9091 NoAdvertise
+## Uncomment to return an arbitrary blob of html on your DirPort. Now you
+## can explain what Tor is if anybody wonders why your IP address is
+## contacting them. See contrib/tor-exit-notice.html in Tor's source
+## distribution for a sample.
+#DirPortFrontPage /etc/tor/tor-exit-notice.html
+
+## Uncomment this if you run more than one Tor relay, and add the identity
+## key fingerprint of each Tor relay you control, even if they're on
+## different networks. You declare it here so Tor clients can avoid
+## using more than one of your relays in a single circuit. See
+## https://www.torproject.org/docs/faq#MultipleRelays
+## However, you should never include a bridge's fingerprint here, as it would
+## break its concealability and potentionally reveal its IP/TCP address.
+#MyFamily $keyid,$keyid,...
+
+## A comma-separated list of exit policies. They're considered first
+## to last, and the first match wins. If you want to _replace_
+## the default exit policy, end this with either a reject *:* or an
+## accept *:*. Otherwise, you're _augmenting_ (prepending to) the
+## default exit policy. Leave commented to just use the default, which is
+## described in the man page or at
+## https://www.torproject.org/documentation.html
+##
+## Look at https://www.torproject.org/faq-abuse.html#TypicalAbuses
+## for issues you might encounter if you use the default exit policy.
+##
+## If certain IPs and ports are blocked externally, e.g. by your firewall,
+## you should update your exit policy to reflect this -- otherwise Tor
+## users will be told that those destinations are down.
+##
+## For security, by default Tor rejects connections to private (local)
+## networks, including to your public IP address. See the man page entry
+## for ExitPolicyRejectPrivate if you want to allow "exit enclaving".
+##
+#ExitPolicy accept *:6660-6667,reject *:* # allow irc ports but no more
+#ExitPolicy accept *:119 # accept nntp as well as default exit policy
+#ExitPolicy reject *:* # no exits allowed
+
+## Bridge relays (or "bridges") are Tor relays that aren't listed in the
+## main directory. Since there is no complete public list of them, even an
+## ISP that filters connections to all the known Tor relays probably
+## won't be able to block all the bridges. Also, websites won't treat you
+## differently because they won't know you're running Tor. If you can
+## be a real relay, please do; but if not, be a bridge!
+#BridgeRelay 1
+## By default, Tor will advertise your bridge to users through various
+## mechanisms like https://bridges.torproject.org/. If you want to run
+## a private bridge, for example because you'll give out your bridge
+## address manually to your friends, uncomment this line:
+#PublishServerDescriptor 0
+
+#
+#https://www.torproject.org/projects/obfsproxy-instructions.html.:
+Bridge 000.000.000.00:443 4e836b3ee474078eb016d6ec94c170675cdf16c
+Bridge 00.00.000.000:443 747c7bc923dfc9f601ebc7500f928c367d8556af4
+Bridge 000.00.00.00:6027 4834743900fb63b60181e4a2fcd7a74aebcd53d8
+Bridge 00.000.00.000:443 94be9ca2af3e57f8a8b0411b1012545a6668290d
+#
+UpdateBridgesFromAuthority 1
+UseBridges 1
+#http://www.2byts.com/2012/03/09/how-to-configure-the-exit-country-on-tor-network/
+###
+#StrictExitNodes 1
+#ExitNodes {DE}
+</pre></p><hr>
+<p><a id="unicode" href="#">unicode</a><pre>
+#################
+#
+#
+#################
+
+Unicode HEX code in linux:
+
+1.  Hold down [Left Ctrl] + [Shift] + [U] keys (at the same time).
+2.  Underlined u should appear.
+3.  Release the keys.
+4.  Enter Unicode symbol's hex code.(after undelined u)
+5.  Press [Space] key
+
+# http://www.unicode.org/emoji/charts-5.0/emoji-list.html
+	1F600~E007F
+1F92a	🤪
+
+
+    266A	♪	musical sign
+    1F44F	👏
+
+	2190~21FF
+    2190	←	Arrow left
+    2191	↑
+    219A	↚
+    219F	↟
+    21FF	⇿
+
+    2338	⌸	keyboard
+    2388	⎈	
+
+	2460~24FF	numbers
+    2460	①
+    24FF	⓿
+
+	2500~257F	Box Drawing
+    2500	─
+    2502	│
+    250C	┌
+    2510	┐
+    2518	┘
+    2514	└
+
+	┌───────────────┐ ╔══╤═══╗  ╭─────╮
+	│               │ ╟──╯   ║  │     │
+	│               │ ╠═══╦══╣  │     │
+	│               │ ║   ║  ║  │     │
+	└───────────────┘ ╚═══╩══╝  ╰─────╯
+
+	2580~259F	Block Elements
+    2580	▀
+    2581	▁
+    2582	▂
+    2583	▃
+    2584	▄
+    2585	▅
+    2586	▆
+    2587	▇
+    2588	█
+
+	25A0~25FF	Geometric Shapes
+    25B6	▶
+    25B7	▷
+    25B2	▲
+    25B3	△
+    25BC	▼
+    25BD	▽
+
+	2600~26FF
+    2600	☀
+    2602	☂
+    2605	★
+    260E	☎ 
+    2618	☘
+    262F	☯
+    2639	☹
+    263a	☺
+    2630	☰
+    2631	☱
+    2632	☲
+    2633	☳
+    2634	☴
+    2635	☵
+    2636	☶
+    2637	☷	
+    26A7	⚧
+    2680	⚀	
+    2681	⚁	
+    2682	⚂	
+    2683	⚃	
+    2684	⚄	
+    2685	⚅	
+    2686	⚆
+
+
+
+		
+#	http://fsymbols.com/keyboard/linux/unicode/
+</pre></p><hr>
+<p><a id="useragent" href="#">useragent</a><pre>
+Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
+Mozilla/5.0 (Linux; U; Android 4.0.3; de-ch; HTC Sensation Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
+Mozilla/5.0 (Linux; U; Android 2.3; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9
+Mozilla/5.0 (Linux; U; Android 2.3.5; zh-cn; HTC_IncredibleS_S710e Build/GRJ90) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+Mozilla/5.0 (Linux; U; Android 2.3.4; fr-fr; HTC Desire Build/GRJ22) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; T-Mobile myTouch 3G Slide Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari
+Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+</pre></p><hr>
+<p><a id="virtualbox" href="#">virtualbox</a><pre>
+##################
+#
+#  virtualbox
+#
+##################
+
+# command for vdi image file
+VBoxManage modifyhd         <uuid|filename>
+                            [--type normal|writethrough|immutable|shareable|
+                                    readonly|multiattach]
+                            [--autoreset on|off]
+                            [--compact]
+                            [--resize <megabytes>|--resizebyte <bytes>]
+
+# change UUID
+vboxmanage internalcommands sethduuid /path/to/virtualdisk.vdi
+
+# resizing
+$vboxmanga modifthd --resize 10000 winxp.vdi
+#بعدش بهید لینوکس لایو مانت کنی و سایزشو زیاد کنی وگرنه نمیشه
+##################
+</pre></p><hr>
+<p><a id="vim" href="#">vim</a><pre>
+!#
+
+#using vim utorial
+$vim tutor
+
+################################################
+#install python-jedi plugin #auto-completing
+aptitude install vim-python-jedi vim-addons-manager
+vim-addons-manager instaal python-jedi
+
+# vim.wikia.com/wiki/Dictionary_completions
+:help "dictionary" #get help
+:set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
+
+<ctrl+x><ctrl+k><ctrl+n> #in insert mode
+# hitting CTRL-X while in insert mode. Next, use CTRL-K. 
+# Once in this mode the keys CTRL-N and CTRL-P will cycle through the matches. 
+#or
+:set complete+=k
+<ctrl+n><ctrl+n>
+
+#ALSO ITS POSIBLE TO 
+#use filetype-specific dictionaries
+
+# Completion for python/lua/etc keywords
+
+################################################
+
+[ctrl] + p		Autocomplete
+[ctrl] + N		Autocomplete
+
+
+_______________________________________________________________
+http://www.gammon.com.au/smaug/vi.htm#progammertips
+http://crossonline.blogspot.co.uk/2008/02/vi-shortcuts-autocomplete.html
+
+# THE BASICS
+
+vi			Edit a file from command prompt
+vi -R			dit a file from command prompt for reading only
+:e			Edit a file from within vi
+:e!			Edit a new file from within vi, discard changes to current file
+:e!			Reload current file, discarding changes
+Ctrl+F (or PgDn)	Go forwards a page	
+Ctrl+B (or PgUp)	Go backwards a page	
+Arrow keys		Move around single lines or characters	
+:w			Save changes	
+:w!			Save changes and override protected (read-only) files	
+ZZ			Save changes and exit vi	
+:q			Quit	
+:q!			Quit and discard changes	
+:help			Get general help	
+:help set		Get help on a command (eg. :set)
+:set ro			Set read-only mode	
+
+# GO TO LINES, FIND MATCHING TEXT
+
+1234G			Go to line 1234 (do not see typing)	
+:1234			Go to line 1234 (see typing)	
+1G			Go to start of file	
+G			Go to end of file	
+/swordfish		Find (forwards) a line containing "swordfish"	
+/you see .* here	Find (forwards) a line using a regular expression	
+n			Repeat last search	
+N			Repeat last search in opposite direction	
+?swordfish		Find (backwards) a line containing "swordfish"	
+?you see .* here	Find (backwards) a line using a regular expression	
+:set ic			Search case insensitive (Ignore Case)	
+:set noic		Search with case sensitivity	
+:set wrapscan		Wrap searches back to start of file	
+:set nowrapscan		Do not wrap searches	
+
+# LINE NUMBERS
+
+:set nu				Show line numbers on the left	
+:set nonu			Do not show line numbers on the left	
+:.=				Show the current line number	
+:=				Show total lines in file	
+Ctrl+G				Show file name, total lines, and current line number	
+:/pattern/=			Show line number of first matching pattern	
+
+# UNDOING THINGS
+
+u				Undo last change	
+U				Undo all changes on current line	
+
+:q!				Quit editor without saving changes	
+:e!				Reload current file, discarding changes	
+
+# INSERT TEXT
+
+i				Insert after cursor	
+a				Insert before cursor	
+I				Insert at beginning of line	
+A				Insert at end of line (append)	
+o				Open (start) new line below cursor	
+O				Open (start) new line above cursor	
+
+# CHANGE EXISTING TEXT
+
+r				Replace next character	
+R				Type over following characters	
+C				Replace to end of line	
+
+# DELETE TEXT
+
+x				Delete character under cursor	
+X				Delete character to left of cursor	
+D				Delete to end of line	
+dd				Delete entire line	
+
+# ADVANCED DELETION
+
+5dd				Delete next 5 lines	
+d$				Delete to end of line	
+d0				Delete to start of line	
+d/swordfish			Delete to word "swordfish"	
+dfx				Delete to the letter "x"	
+:10,20d				Delete lines 10 to 20	
+:.,+5d				Delete current line and another 5 lines	
+:%d				Delete all lines	
+dw				Delete current word	
+:/pattern/d			Find line containing pattern, delete it	
+:/dog/,/cat/d			Find line containing "dog", delete until "cat"	
+:.,/foo/d			Delete from current line to line containing "foo"	
+
+# COPYING, CUTTING AND PASTING
+
+p				Paste after cursor	
+P				Paste before cursor	
+y$				Yank to end of line	
+y0				Yank to start of line	
+y/swordfish			Yank to word "swordfish"	
+yfg				Yank to letter "g"	
+Y				Yank entire line	
+5,10y				Yank lines 5 to 10	
+
+# ADVANCED MOVEMENT COMMANDS
+
+w				Go forwards a word	
+b				Go backwards a word	
+e				Go to end of word	
+0				Go to start of line	
+$				Go to end of line	
+H				Go to top of screen	
+M				Go to middle of screen	
+L				Go to bottom of screen	
+fx				Go (forwards) to letter "x" on current line	
+Fx				Go (backwards) to letter "x" on current line	
+*				Go to next occurrence of word under cursor	
+#				Go to previous occurrence of word under cursor	
+/(Ctrl+V)(Tab)			Find a control character (eg. Tab)	
+(				Go backwards a sentence	
+)				Go forwards a sentence	
+{				Go backwards a paragraph	
+}				Go forwards a paragraph	
+
+# REPEAT COUNTS
+
+5dd				Delete 5 lines	
+5x				Delete 5 characters	
+Delete 5 words	5dw
+5r				Replace next 5 characters	
+7Y				Yank (copy) next 7 lines	
+Go to line 1000	1000G
+10p				Paste copy buffer 10 times	
+40i-				Insert 40 hyphens	
+10oswordfish			Insert the line "swordfish" 10 times	
+5/swordfish			Find the 5th occurrence of "swordfish"	
+
+# SPLITTING AND JOINING LINES
+
+i				Split a line (insert a return)	
+J				Join two lines (current and next)	
+10J				Join next 10 lines	
+:10,20j				Join lines 10 to 20	
+
+# SEARCH AND REPLACE
+
+:s/nick/fred/			Change "nick" to "fred" on current line	
+:.,+4 s/nick/fred/		Change "nick" to "fred" on the next 5 lines	
+:100,200 s/nick/fred/g		Change "nick" to "fred" on lines 100 to 200, all occurrences	
+:% s/\<./\u&/g			Capitalise every word in the entire file	
+:% s/^/>/			Insert ">" at the start of every line	
+:% s;$;// nick;			Insert "// nick" at the end of every line	
+
+# APPLYING COMMANDS TO CERTAIN LINES
+
+:g/fruit/s/apple/orange/g	Find lines containing "fruit" and change "apple" to "orange" on them	
+:g/^$/d				Delete all blank lines	
+:g! /nick/normal A oops		Find lines NOT containing "nick", append "oops" to them	
+
+# SHELL AND FILTER COMMANDS
+
+:! ls				List directory	
+:! ps				See processes	
+:20,30 ! sort			Sort lines 20 to 30	
+!G sort				Sort entire file		
+!) tr '[a-z]' '[A-Z]'		Translate next sentence to upper case	
+:!wc %				Word count file (save first)	
+:!man strstr			Look up manual entry for strstr	
+:r !ls				Insert "ls" command output into window	
+
+# TAGS
+
+Ctrl+]				Go to function under cursor	
+Ctrl+T				Go back	
+:tag xyz			Go to function xyz	
+
+# AUTOMATING THINGS
+
+:w				Save file	
+:make				Run "make"	
+:cn				Go to next error	
+:cp				Go to previous error	
+
+# MAPPING ACTIONS TO FUNCTION KEYS
+
+	After entering the above commands you could compile 
+	by simply hitting F8, then look at each error by hitting F6.
+
+:map :cnext			Map the action :cnext to	
+:map :cprevious			Map the action :cprevious to	
+:map :make			Map the action :make to	
+:map :close			Map the action :close to	
+
+# MORE USEFUL TIPS FOR PROGRAMMERS	#####
+
+gd				Go to definition of word under cursor	
+gD				Go to global definition	
+%				Find matching bracket, brace, #if, #endif	
+:grep foo *.c			Do a grep	
+:cn				After grep, go to next occurrence	
+gf				Get a file (eg. an #include file) whose name is under cursor	
+Ctrl+X Ctrl+N			Auto complete (in insert mode) - match forwards	
+Ctrl+X Ctrl+P			Auto complete (in insert mode) - match previous	
+:ab cca const char *		Make an abbreviation (eg. cca = "const char *")	
+:syntax on			Turn syntax colouring on	
+:syntax off			Turn syntax colouring off	
+:! command			Execute any shell command	
+=				Indent selected lines with C-style indenting	
+
+# SPELLCHECK FILE
+
+:w!				Save file first	
+:! ispell %			Spell check it	
+:e %				Edit fixed file	
+
+# TAB MANAGEMENT
+
+:set ts=4			Set tabs to every 4 characters	
+:set et				Convert tabs to spaces in future	
+:set noet			Do not expand tabs	
+:%retab				Fix existing tabs (convert to spaces)	
+:set list			Show tabs visually, and end-of-lines	
+:set nolist			Do not show tabs and end-of-lines	
+
+# VISUAL MODE
+
+v				Character mode	
+V				Line mode	
+Ctrl+V				Block mode	
+gv				Re-mark previous block	
+
+(see below)			Do some command	
+Esc				Cancel visual mode	
+o				Go to other end of block	
+
+vaw				A word (with white space)	
+viw				Inner word	
+vaW				A WORD (with white space)	
+viW				Inner WORD	
+vas				A sentence (with white space)	
+vis				Inner sentence	
+vap				A paragraph (with white space)	
+Inner paragraph	vip
+vab				A ( ... ) block (includes brackets)	
+vib				Inner ( ... ) block	
+vaB				A { ... } block (includes braces)	
+viB				Inner { ... } block	
+
+# VISUAL MODE COMMANDS
+
+~				Switch case	
+d				Delete	
+c				Change (4)	
+y				Yank	
+>				Shift right (4)	
+<				Shift left (4)	
+!				Filter through external command (1)	
+=				Filter through 'equalprg' option command (1)	
+gq				Format lines to 'textwidth' length (1)	
+
+:				Start ex command for highlighted lines (1)	
+r				Change (4)	
+s				Change	
+C				Change (2)(4)	
+S				Change (2)	
+R				Change (2)	
+x				Delete	
+D				Delete (3)	
+X				Delete (2)	
+Y				Yank (2)	
+J				Join (1)	
+U				Make uppercase	
+u				Make lowercase	
+Ctrl+]				Find tag	
+I				Block insert	
+A				Block append	
+
+# MARKING YOUR WORK
+
+mx				Mark current position as "x"	
+`x				Go to position "x"	
+:marks				Show list of known marks	
+
+# RECORDING COMMANDS
+
+q(letter)(commands)q		Record a sequence	
+@(letter)			Play back sequence	
+:reg				See what is in registers	
+
+
+</pre></p><hr>
+<p><a id="vym" href="#">vym</a><pre>
+
+
+#################################
+#
+#	mind maping tool
+#
+#
+#################################
+
+</pre></p><hr>
+<p><a id="wget" href="#">wget</a><pre>
+########################################
+#
+#	www.makeuseof.com/tag/mastering-wget-learning-neat-downloading-tricks/
+#
+########################################
+#
+################ SCRIPT
+URL=$1
+wget -c -r -A jpeg,jpg,bmp,gif,png $URL -nd
+#grep image links
+grep -Po 'http.*jpg' index.htm
+############################### FILE
+FIles:
+/etc/wgetrc		# global startup file
+.wgetrc			# local startup file
+####################################
+
+--no-check-certificate
+-b			#Background
+--tries=NUMBER		#
+-c			# continue
+--limit-rate=SPEED	# limit download speed
+-np			# --no-parent
+-nd			# --no-directories
+-N			# update only changed files
+-m			# mirror a site
+-A			# --accept=FILE,EXTENTIONS,jpg
+-R			# --reject rejlist
+--wait=SECONDS		# 
+-w
+--waitretry=seconds	# wait only retries failed
+--retry-connrefused	# 
+--random-wait		#
+-i			# Input. list of urls
+-r			# Recursive
+--level=NUMBER		# set level of -r
+--convert-links		# CONVERT LINKS TO LOCAL
+--user-agent=AGENT	# "Mozilla" or "" or ...
+--http-user=USER
+--http-password=PASS
+
+#
+#######################################
+This will crawl a website and generate a log file of any broken links:
+# wget --spider -o wget.log -e robots=off --wait 1 -r -p http://www.mysite.com/
+#This will take a text file of your favourite music blogs and download any new MP3 files:
+wget -r --level=1 -H --timeout=1 -nd -N -np --accept=mp3 -e robots=off -i musicblogs.txt
+
+
+
+
+-
+</pre></p><hr>
+<p><a id="xclip" href="#">xclip</a><pre>
+############################
+#
+#  xclip - command line interface to X selections (clipboard)
+#
+############################
+
+# copy a string to clipboard buffer
+echo "some text..." | xclip
+
+# paste clipboard buffer
+xclip -o
+</pre></p><hr>
+<p><a id="xxxterm" href="#">xxxterm</a><pre>
+download_dir = ~/Downloads/xomb/
+
+############
+# https://github.com/iratqq/xxxterm/blob/master/xxxterm.conf
+# https://opensource.conformal.com/wiki/xxxterm
+############
+
+# $xxxterm: xxxterm.conf,v 1.50 2011/03/17 21:58:06 marco Exp $
+
+# NOTE: browser_mode MUST be the first entry in this file!
+
+# normal browser operation (default)
+# browser_mode		= normal
+
+# prevent tracking operation
+# browser_mode		= whitelist
+
+# home			= http://www.peereboom.us
+# ctrl_click_focus	= 0
+# append_next		= 1
+# download_dir		= ~/downloads
+# default_font_size	= 12
+# default_font_family	= serif
+# serif_font_family	= serif
+# sans_serif_font_family= sans-serif
+# monospace_font_family	= sans-mono
+# default_encoding	= UTF-8
+# default_zoom_level    = 1.0
+# fancy_bar		= 1
+# refresh_interval	= 10
+# ssl_ca_file		= /etc/ssl/cert.pem
+# ssl_strict_certs	= 0
+# enable_socket		= 0
+# single_instance	= 0
+# save_global_history	= 0
+# show_tabs		= 1
+# show_url		= 1
+# show_statusbar	= 0
+# session_autosave	= 0
+# user_stylesheet	= file:///...
+# guess_search		= 0
+# max_host_connections	= 5
+# max_connections	= 25
+
+#
+# resource_dir		= /usr/local/share/xxxterm/
+# icon_size		= 2
+# window_width		= 1024
+# window_height		= 768
+
+#
+# user_agent can bet set to just about anything
+# for a comprehensive list see: http://www.useragentstring.com/pages/All/
+#
+#user_agent		= Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))
+#user_agent		= Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_5; de-de) AppleWebKit/534.15+ (KHTML, like Gecko) Version/5.0.3 Safari/533.19.4
+user_agent		= Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.3) Gecko/20100401 Firefox/4.0 (.NET CLR 3.5.30729)
+
+#
+# see http://www.xroxy.com/proxylist.php for a good list of open proxies
+# http_proxy		= http://127.0.0.1:80
+
+#
+# search engines
+# uncomment one of these lines for you favorite search engine
+#
+# scroogle (default)
+# search_string		= https://ssl.scroogle.org/cgi-bin/nbbwssl.cgi?Gw=%s
+# search_string		= http://www.scroogle.org/cgi-bin/nbbw.cgi?Gw=%s
+# google
+# search_string		= http://www.google.com/search?q=%s&&client=xxxterm
+# yahoo
+# search_string		= http://search.yahoo.com/search?p=%s
+
+#
+# alias support, %s is substituded with user input
+# alias,link+action
+# alias = ports,http://openports.se/search.php?so=%s
+
+#
+# pdf, note that xpdf can't load a URI directly
+# use @ in front of mime_type to indicate to download the file first
+# mime_type		= application/pdf,kpdf
+# mime_type		= @application/pdf,xpdf
+
+#
+# specific mime type for video
+# mime_type		= video/x-ms-wmv,mplayer
+# mime_type		= video/quicktime,mplayer
+
+# default mime type for video
+# mime_type		= video/*,mplayer
+
+# default mime type for audio
+# mime_type		= audio/*,vlc
+
+# word docs
+# mime_type		= application/msword,soffice
+
+#
+# advanced cookie and JS settings, don't touch unless you know what you are doing
+#
+# the settings for "browser_mode = whitelist" are as follows:
+# allow_volatile_cookies	= 0
+# cookie_policy			= no3rdparty
+# cookies_enabled		= 1
+# enable_cookie_whitelist	= 1
+# read_only_cookies		= 0
+# save_rejected_cookies		= 0
+# session_timeout		= 3600
+# enable_scripts		= 0
+# enable_js_whitelist		= 1
+#
+# the settings for "browser_mode = normal" are as follows
+# allow_volatile_cookies	= 0
+# cookie_policy			= allow
+# cookies_enabled		= 1
+# enable_cookie_whitelist	= 0
+# read_only_cookies		= 0
+# save_rejected_cookies		= 0
+# session_timeout		= 3600
+# enable_scripts		= 1
+# enable_js_whitelist		= 0
+
+# cookie white list
+# cookie_wl		= .conformal.com
+# cookie_wl		= .peereboom.us
+
+# javascript white list
+# js_wl			= .conformal.com
+# js_wl			= .peereboom.us
+
+#
+# key bindings
+# to delete all default keybindings use "keybinding = clearall"
+#
+# keybinding	= clearall
+#
+# Key names can be found at:
+# http://git.gnome.org/browse/gtk+/tree/gdk/gdkkeysyms-compat.h
+# just chop off the GDK_ part and you have the keyname.
+# or look at
+# http://git.gnome.org/browse/gtk+/tree/gdk/gdkkeysyms.h
+# and chop off GDK_KEY_
+# Be aware that the names are case sensitive!
+#
+# default keybindings
+#
+# keybinding	= command,colon
+# keybinding	= search,slash
+# keybinding	= searchb,question
+# keybinding	= cookiejar,M1-j
+# keybinding	= downloadmgr,M1-d
+# keybinding	= history,M1-h
+# keybinding	= print,C-p
+# keybinding	= quit,C-q
+# keybinding	= restart,M1-q
+# keybinding	= js toggle,C-j
+# keybinding	= cookie toggle,M1-c
+# keybinding	= togglesrc,C-s
+# keybinding	= yankuri,y
+# keybinding	= pasteuricur,p
+# keybinding	= pasteurinew,P
+# keybinding	= searchnext,n
+# keybinding	= searchprevious,N
+# keybinding	= focusaddress,F6
+# keybinding	= focussearch,F7
+# keybinding	= promptopen,F9
+# keybinding	= promptopencurrent,F10
+# keybinding	= prompttabnew,F11
+# keybinding	= prompttabnewcurrent,F12
+# keybinding	= hinting,f
+# keybinding	= userstyle,i
+# keybinding	= goback,BackSpace
+# keybinding	= goback,M1-Left
+# keybinding	= goforward,S-BackSpace
+# keybinding	= goforward,M1-Right
+# keybinding	= reload,F5
+# keybinding	= reload,C-r
+# keybinding	= reloadforce,C-R
+# keybinding	= reload,C-l
+# keybinding	= favorites,M1-f
+# keybinding	= scrolldown,j
+# keybinding	= scrolldown,Down
+# keybinding	= scrollup,k
+# keybinding	= scrollup,Up
+# keybinding	= scrollbottom,G
+# keybinding	= scrollbottom,End
+# keybinding	= scrolltop,g
+# keybinding	= scrolltop,Home
+# keybinding	= scrollpagedown,space
+# keybinding	= scrollpagedown,C-f
+# keybinding	= scrollpagedown,Page_Down
+# keybinding	= scrollhalfdown,C-d
+# keybinding	= scrollpageup,Page_Up
+# keybinding	= scrollpageup,C-b
+# keybinding	= scrollhalfup,C-u
+# keybinding	= scrollright,l
+# keybinding	= scrollright,Right
+# keybinding	= scrollfarright,dollar
+# keybinding	= scrollleft,h
+# keybinding	= scrollleft,Left
+# keybinding	= scrollfarleft,0
+# keybinding	= tabnew,C-t
+# keybinding	= tabclose,C-w
+# keybinding	= tabundoclose,U
+# keybinding	= tabgoto1,C-1
+# keybinding	= tabgoto2,C-2
+# keybinding	= tabgoto3,C-3
+# keybinding	= tabgoto4,C-4
+# keybinding	= tabgoto5,C-5
+# keybinding	= tabgoto6,C-6
+# keybinding	= tabgoto7,C-7
+# keybinding	= tabgoto8,C-8
+# keybinding	= tabgoto9,C-9
+# keybinding	= tabgoto10,C-0
+# keybinding	= tabfirst,C-less
+# keybinding	= tablast,C-greater
+# keybinding	= tabprevious,C-Left
+# keybinding	= tabnext,C-Right
+# keybinding	= focusout,C-minus
+# keybinding	= focusin,C-equal
+# keybinding	= focusin,C-plus
+
+
+
+#################
+#
+#
+#################
+
+ctrl+s 
+f
+s
+
+#+=============+
+
+:set http_proxy=http://127.0.0.1:8080
+:set auto_load_images=0 # or 1
+:loadimages
+:js toggle
+:dl
+
+
+
+
+#
+#
+#   http://kerunix.com/xombrero_config_the_vimperator_way.html
+#
+#
+
+apt-get build-dep xxxterm
+apt-get install libgtk-3-dev libwebkitgtk-3.0-dev libbsd-dev
+git clone https://opensource.conformal.com/git/xombrero.git
+cd xombrero/linux
+make
+sudo make install
+
+</pre></p><hr>
+<p><a id="youtube" href="#">youtube-dl</a><pre>
+#http://rg3.github.io/youtube-dl/download.html
+torify wget https://yt-dl.org/downloads/2014.03.07.1/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+x /usr/local/bin/youtube-dl
+
+
+--user-agent "Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0"
+
+#Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))
+</pre></p><hr>
+<p><a id="xdotool" href="#">xdotool</a><pre>
+xdotool
+</pre></p><hr>
+<p><a id="other" href="#">other</a><pre>
+#webcam using vlc ,v4l2 driver
+vlc v4l2:///dev/video0
+
+#return installed librarys and packages
+pkg-config --list-all
+
+#gnome minimal IDE, ctrl+space = auto-completion
+geany
+
+# CD/DVD
+    # make iso
+	dd if=/dev/dvd of=my_test.iso bs=2048
+    #mount iso
+	mount -t iso9660 -o loop my_test.iso /mnt/isoimage
+    # burn iso
+	wodim -eject -tao  speed=2 dev=/dev/sr1 -v -data my_test.iso
+	growisofs -dvd-compat -Z /dev/dvd=my_test.iso
+
+
+#set keyboard layouts
+setxkbmap -layout "us,ir" -option "grp:alt_shift_toggle"
+
+#display manipulation
+arandr -h
+
+# joystick calibrator
+jscalibrator
+
+# HP driver fixer
+hplip
+
+# network monitoring or somting!
+wireshark
+
+# screen recordin
+kazam
+</pre></p><hr>
+
+<p><a id="" href="#"></a><pre></pre></p><hr>
+   </div>
+   <div class="header footer"><a href="http://transimia.github.io">&#x1F3E0</a></div>
+</div>
+</body>
+

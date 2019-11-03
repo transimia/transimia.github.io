@@ -1,0 +1,44 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="styledark.css">
+</head>
+
+<body class="pattern1">
+<div class="container">
+   <div class="header ltr"> </div>
+   <div class="content rtl">
+<p>
+<a href="https://tenbaht.github.io/sduino/developer/sdcc/">راهنمای سازنده برد</a>
+
+<h2>نصب کامپایلر</h2>
+برای شروع کار با میکرو های هشت بیتی اس تی باید اول وسایل کار آماده شود. در اینجا روش بیلد کردن کامپایلر اس دی سی سی فقط برای این معماری آورده خواهد شد.
+ابتدا باید آخرین ورژن آن را 
+<a href="https://sourceforge.net/projects/sdcc/files/" >دانلود</a>
+ کنید. نسخه های قدیمی از این میکرو اس تی پشتیبانی نمیکنند.
+<br><a href="https://sourceforge.net/projects/sdcc/files/"> دانلود نسخه ۳.۷</a>
+
+
+پیش از کامپایل با اسکریپت کانفیگر میتوان قبلیت ها یا معماری های دیگر را غیر فعال کرد. این کار فرآیند کار را آسان تر میکند.
+
+<pre class="ltr">
+./configure --help #see what options apply to you.
+
+./configure --disable-mcs51-port --disable-z80-port --disable-z180-port --disable-r2k-port --disable-r3ka-port --disable-gbz80-port  --disable-tlcs90-port --disable-ds390-port  --disable-ds400-port --disable-pic14-port --disable-pic16-port  --disable-hc08-port --disable-s08-port --disable-ucsim
+
+make && echo done.
+</pre>
+<br>
+حالا با دستور زیر و یا به صورد دستی میتوانید کامپایلر را نصب کنید و یا در هر جایی که خواستید کپی کنید
+<pre class="ltr">
+make install
+<pre>
+<br>
+<h2>نصب نصب برنامه پروگرامر</h2>
+ابزار های مفیدی برای کار با پورگرامر ها در لینوکس وجود دارد.
+
+</p>
+   </div>
+   <div class="header footer"><a href="http://transimia.github.io">&#x1F3E0</a></div>
+</div>
+</body>
+
